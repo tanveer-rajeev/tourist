@@ -1,0 +1,6 @@
+Command on git bash into root directory --->
+       "touch .gitignore && echo "node_modules/" >> .gitignore && git rm -r --cached node_modules ; git status"
+
+It works no matter if you've created a .gitignore or not, no matter if you've added node_modules to git tracking or not.
+
+Then commit and push the .gitignore changes. 
