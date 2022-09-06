@@ -8,14 +8,31 @@ import Icon from './Icon';
 import {useDispatch} from 'react-redux';
 import jwt_decode from 'jwt-decode';
 import {useNavigate} from 'react-router-dom';
+import {signup,signin} from '../../actions/authActions.js'
 const Auth = () => {
+    const initialState = { firstName: '',lastName: '',email: '',password: '' }
+    const [formData,setFormData] = useState(initialState);
     const [showPassword,setShowPassword] = useState(false);
     const handleShowPassword = ()=> setShowPassword((prevShowPassword)=>!prevShowPassword)
     const [isSignup,setIsSignup] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const handleSubmit = () => {}
-    const handleChange = () => {}
+
+    const switchMode = () => {
+        setIsSignup((prev)=>!prev)
+        setShowPassword((prev)=>!prev)
+    }
+    const handleSubmit = (e) => {
+         e.preventDefault();
+         if(isSignup)dispatch(signup(formData,navigate));
+         else dispatch(signin(formData,navigate));
+
+         console.log(formData);
+    }
+    const handleChange = (e) => {
+       
+        setFormData({...formData,[e.target.name]:e.target.value})
+    }
 
     const googleSuccess = async(res) => {
         
@@ -32,10 +49,10 @@ const Auth = () => {
     }
 
     const googleFailure = (err) => {console.log(err);}
-    const switchMode = () => {setIsSignup((prev)=>!prev)}
+    
 
   return (
-    <GoogleOAuthProvider clientId="1095138237473-2t2msh5aq7odo1l32ff4hht1rlopeimq.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId={`${process.env.REACT_APP_PUBLIC_GOOGLE_API_TOKEN}`}>
         <Container component='main' maxWidth='xs'>
         <Paper sx={{marginTop: 10,display: 'flex',flexDirection: 'column',alignItems: 'center',padding: '10px'}} elevation={6}>
             <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
@@ -48,7 +65,7 @@ const Auth = () => {
                         isSignup && (
                         <>
                             <Input name='firstName' label='First Name' handleChange={handleChange} autoFocus half/>
-                            <Input name='firstName' label='First Name' handleChange={handleChange} half/>
+                            <Input name='lastName' label='Last Name' handleChange={handleChange} half/>
                         </>
                         )
                     }
