@@ -16,11 +16,11 @@
     return (
         <Grow in>
         <Container>
-         <Grid container spacing={3}>
+         <Grid container spacing={3} sx={{display: 'flex',justifyContent: 'space-between'}}>
             <Grid item xs={12} sm={7}>
               <Posts setCurrentId={setCurrentId}/>
             </Grid>
-            <Grid  sx={{alignItems:'right'}} item xs={12} sm={4}>
+            <Grid   item xs={12} sm={4}>
               <Form currentId={currentId}  setCurrentId={setCurrentId}/>
             </Grid>
          </Grid>
