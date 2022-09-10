@@ -5,10 +5,11 @@
   import { createPost,updatePost } from "../../actions/postActions";
 
   const Form = ({currentId, setCurrentId}) => {
-    const [postData, setPostData] = useState({creator: "",title: "",message: "",tags: "",selectedFile: "",});
+    const [postData, setPostData] = useState({title: "",message: "",tags: "",selectedFile: "",});
     const dispatch = useDispatch();
     const post = useSelector((state) => currentId ? state.posts.find((post) => post._id === currentId):null)
-    
+    const user = JSON.parse(localStorage.getItem("profile"));
+
     useEffect(()=>{
       if(post) setPostData(post);
     },[post])
@@ -17,17 +18,27 @@
       e.preventDefault();
 
       if(currentId){
-        dispatch(updatePost(currentId,postData));
+        dispatch(updatePost(currentId,{...postData, name: user?.result?.name}));
       }
       else {
-        dispatch(createPost(postData));
+        dispatch(createPost({...postData, name: user?.result?.name}));
       }
       clear();
     };
 
+    if(!user?.result?.name){
+      return(
+            <Paper>
+              <Typography variant ="h6" align="center">
+                Please sign in to create your own content or like, comment to other's content
+              </Typography>
+            </Paper>
+      );
+    }
+
     const clear = () => {
       setCurrentId(null);
-      setPostData({creator: "",title: "",message: "",tags: "",selectedFile: ""});
+      // setPostData({title: "",message: "",tags: "",selectedFile: ""});
     };
 
     return (
@@ -35,14 +46,12 @@
         <FormControl  component="form"  sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}  autoComplete ="off" noValidate  onSubmit={handleSubmit}>        
           <Typography variant="h6">{currentId ? 'Editing':'Creating'} a memrory</Typography>        
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={14}>
-              <TextField name="creator" variant="outlined" label="creator" fullWidth value={postData.creator} onChange={(e) => {setPostData({ ...postData, creator: e.target.value });}}/>
-            </Grid>
+            
             <Grid item xs={12} sm={14}>
               <TextField name="title" variant="outlined" label="title" fullWidth value={postData.title} onChange={(e) => {setPostData({ ...postData, title: e.target.value });  }}/>
             </Grid>
-            <Grid item xs={12} sm={14}>
-              <TextField  name="message"  variant="outlined"  label="message"  fullWidth  value={postData.message}  onChange={(e) => {setPostData({ ...postData, message: e.target.value });}}/>
+            <Grid item xs={15} sm={14}>
+              <TextField  name="message"  variant="outlined"  label="message"  fullWidth multiline rows={4} value={postData.message}  onChange={(e) => {setPostData({ ...postData, message: e.target.value });}}/>
             </Grid>
             <Grid item xs={12} sm={14}>
               <TextField  name="tags"  variant="outlined"  label="tags"  fullWidth  value={postData.tags}  onChange={(e) => {setPostData({ ...postData, tags: e.target.value.split(",") });  }}/>
