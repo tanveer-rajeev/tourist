@@ -27,8 +27,8 @@
     };
 
     return (
-      <Card  sx ={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between', borderRadius: '15px', height: '100%', position: 'relative',}}>
-          <CardMedia component = "img" image = {post.selectedFile} title = {post.title} sx={{height:170, backgroundColor: 'rgba(0, 0, 0, 0.5)', backgroundBlendMode: 'darken',}} />
+      <Card  sx ={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between', borderRadius: '15px', height: '100%', position: 'relative',}}elevation={6}>
+          <CardMedia component = "img" image = {post.selectedFile} title = {post.title} sx={{height:300, backgroundColor: 'rgba(0, 0, 0, 0.5)', backgroundBlendMode: 'darken',}} />
           <Box sx ={{position: 'absolute', top: '20px', left: '20px', color: 'white',}}>
               <Typography variant ="h6">{ post.name } </Typography>
               <Typography variant ="body2">{ moment(post.createdAt).fromNow() } </Typography>

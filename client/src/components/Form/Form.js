@@ -5,14 +5,16 @@
   import { createPost,updatePost } from "../../actions/postActions";
 
   const Form = ({currentId, setCurrentId}) => {
-    const [postData, setPostData] = useState({title: "",message: "",tags: "",selectedFile: "",});
+    
+    const [postData, setPostData] = useState({title: "",message: "",tags:"",selectedFile: "",});
     const dispatch = useDispatch();
-    const post = useSelector((state) => currentId ? state.posts.find((post) => post._id === currentId):null)
+    let {posts} = useSelector((state) => state.posts);
+    posts = currentId ? posts.find((post) => post._id === currentId):null
     const user = JSON.parse(localStorage.getItem("profile"));
 
     useEffect(()=>{
-      if(post) setPostData(post);
-    },[post])
+      if(posts) setPostData(posts);
+    },[posts])
 
     const handleSubmit = (e) => {
       e.preventDefault();
@@ -38,11 +40,11 @@
 
     const clear = () => {
       setCurrentId(null);
-      // setPostData({title: "",message: "",tags: "",selectedFile: ""});
+      setPostData({title: "",message: "",tags: "",selectedFile: ""});
     };
 
     return (
-      <Paper  sx={{padding: 2,backgroundImage: "../../images/24161322546_1019cebb0c_b.jpg",  }}>
+      <Paper elevation={6}  sx={{padding: 2,backgroundImage: "../../images/24161322546_1019cebb0c_b.jpg",  }}>
         <FormControl  component="form"  sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}  autoComplete ="off" noValidate  onSubmit={handleSubmit}>        
           <Typography variant="h6">{currentId ? 'Editing':'Creating'} a memrory</Typography>        
           <Grid container spacing={2}>
@@ -54,7 +56,7 @@
               <TextField  name="message"  variant="outlined"  label="message"  fullWidth multiline rows={4} value={postData.message}  onChange={(e) => {setPostData({ ...postData, message: e.target.value });}}/>
             </Grid>
             <Grid item xs={12} sm={14}>
-              <TextField  name="tags"  variant="outlined"  label="tags"  fullWidth  value={postData.tags}  onChange={(e) => {setPostData({ ...postData, tags: e.target.value.split(",") });  }}/>
+              <TextField  name="tags"  variant="outlined"  label="tags"  fullWidth  value={postData.tags}  onChange={(e) => {setPostData({ ...postData, tags:e.target.value.split(",") });  }}/>
             </Grid>
           </Grid>
           <Box sx={{ width: "97%", margin: "10px 0" }}>
