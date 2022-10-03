@@ -64,19 +64,27 @@
                         <Registration isSignup={isSignup} formData={formData} setFormData={setFormData} />
                         
                         
-                        <GoogleLogin
-
-                        // render = {(renderProps) => (
-                        //     <Button color="primary" fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} startIcon={<Icon/>}>
-                        //     Google Sign In
-                        //     </Button>
-                        // )}
-                        buttonText="Login"
-                        onSuccess={googleSuccess}
-                        onFailure={googleFailure}
-                        cookiePolicy={"single_host_origin"}
-                        // useOneTap
+                        <Box sx={{
+                                  justifyContent: 'center',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  width: '100%',}}>
+                            <GoogleLogin
+                           
+                            // render = {(renderProps) => (
+                            //     <Button color="primary" sx = {{border: '1px solid red'}} onClick={renderProps.onClick} 
+                            //     disabled={renderProps.disabled} >
+                            //     Google Sign In
+                            //     </Button>
+                            // )}
+                            buttonText="Login"
+                            onSuccess={googleSuccess}
+                            onFailure={googleFailure}
+                            cookiePolicy={"single_host_origin"}
+                            useOneTap
                         />
+                        </Box>
+                        
                         
                     </Box>
                

@@ -3,14 +3,16 @@
   import FileBase from "react-file-base64";
   import { useDispatch,useSelector } from "react-redux";
   import { createPost,updatePost } from "../../actions/postActions";
+  import {useNavigate} from 'react-router-dom';
 
   const Form = ({currentId, setCurrentId}) => {
     
     const [postData, setPostData] = useState({title: "",message: "",tags:"",selectedFile: "",});
     const dispatch = useDispatch();
     let {posts} = useSelector((state) => state.posts);
-    posts = currentId ? posts.find((post) => post._id === currentId):null
+    posts = currentId ? posts.find((post) => post._id === currentId) : null
     const user = JSON.parse(localStorage.getItem("profile"));
+    const navigate = useNavigate();
 
     useEffect(()=>{
       if(posts) setPostData(posts);
@@ -23,7 +25,7 @@
         dispatch(updatePost(currentId,{...postData, name: user?.result?.name}));
       }
       else {
-        dispatch(createPost({...postData, name: user?.result?.name}));
+        dispatch(createPost({...postData, name: user?.result?.name},navigate));       
       }
       clear();
     };
@@ -44,7 +46,7 @@
     };
 
     return (
-      <Paper elevation={6}  sx={{padding: 2,backgroundImage: "../../images/24161322546_1019cebb0c_b.jpg",  }}>
+      <Paper elevation={6}  sx={{padding: 2 }}>
         <FormControl  component="form"  sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}  autoComplete ="off" noValidate  onSubmit={handleSubmit}>        
           <Typography variant="h6">{currentId ? 'Editing':'Creating'} a memrory</Typography>        
           <Grid container spacing={2}>

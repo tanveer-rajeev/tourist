@@ -8,25 +8,23 @@ import PostDetails from "./components/PostDetails/PostDetails";
 
 
 const  App  = ()=> {
-     console.log("App");
+
+  const user = JSON.parse(localStorage.getItem('profile'));
     return (
       <BrowserRouter>
       <Container maxWidth="xxl">
-        <Navbar/>
+      
         <Routes>
-         
-
-            <Route path = "/" element = {<Navigate to="/posts" replace />}/>
-
-            <Route path = "/auth" index element = {<Auth/>}/>
-          
-            <Route path = "/posts" element = {<Home/>}/>
-            <Route path = "/posts/search" element = {<Home/>}/>
-            <Route path = "/posts/:id"  element = {<PostDetails/>}/>  
-       
-
-        </Routes>
-        
+            <Route element ={<Navbar/>}>
+              <Route path = "/auth"  element = { <Auth /> }/> 
+              <Route path = "/" element = {<Navigate to="/posts" replace />}/>
+              <Route path = "posts"  element = {<Home />}/>
+              <Route path = "posts/:id"  element = {<PostDetails />}/> 
+              <Route path = "posts/search"  element = {<Home />}/>  
+            </Route>
+            
+       </Routes>
+              
       </Container>
       </BrowserRouter>
     );

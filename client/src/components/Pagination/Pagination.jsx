@@ -16,13 +16,13 @@ const Paginate = ({page}) => {
   }, [page,dispatch]);
 
   return (
-    <Pagination sx={{ borderRadius: 4, marginTop: '1rem', padding: '16px',}}
+    <Pagination sx={{ borderRadius: 4, marginTop: '1rem', padding: '.6rem',}}
         count={numberOfPages}
         page={Number(page) || 1}
         variant="outlined"
         color="primary"
         renderItem= {(item) => (
-          <PaginationItem {...item} component = {Link} to={`/posts?page=${item.page}`}  />
+          <PaginationItem  {...item} component = {Link} to={`/posts?page=${item.page}`}  />
         )}
       />
  

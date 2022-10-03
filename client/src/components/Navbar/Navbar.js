@@ -17,15 +17,14 @@
         navigate('/');
         setUser(null);
       }
-  
-    
+     
       useEffect(() => {
         setUser(JSON.parse(localStorage.getItem('profile')));
       },[location])
 
     return (
 
-     
+     <Box>    
         <AppBar  sx={{borderRadius: 3, margin: '23px 0',display: 'flex', flexDirection: 'row', justifyContent: 'space-between',padding: '2px 2px'}}
            position="relative"  color="inherit">
           <Box sx={{display: 'flex',alignItems: 'center'}}>
@@ -60,6 +59,8 @@
   
         </AppBar>
 
+        <Outlet/>
+    </Box>
   )
   }
 

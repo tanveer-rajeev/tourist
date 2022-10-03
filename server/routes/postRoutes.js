@@ -1,13 +1,19 @@
-    import express from "express";
-    const router = express.Router();
-    import { getPosts,getPostsBySearch, createPosts, updatePosts, deletePosts, likePost } from "../controllers/postController.js";
+    import express from "express";  
+    import {commentPosts,getPost, getPosts,getPostsBySearch, createPosts, updatePosts, deletePosts, likePost } from "../controllers/postController.js";
     import auth from "../middleware/auth.js";
-console.log("router");
-    router.get("/", getPosts);
-    router.get("/search",getPostsBySearch);
-    router.post("/",auth, createPosts);
-    router.patch("/:id",auth, updatePosts);
-    router.delete("/:id",auth, deletePosts);
-    router.patch("/:id/likePost",auth, likePost);
+
+    const postRouter = express.Router();
+
+    postRouter.get("/", getPosts); 
+    postRouter.get("/search",getPostsBySearch);
+    postRouter.get("/:id", getPost);
+
+    postRouter.post("/",auth, createPosts);
+    postRouter.patch("/:id",auth, updatePosts);
+    postRouter.delete("/:id",auth, deletePosts);
+    postRouter.patch("/:id/likePost",auth, likePost);
+    postRouter.patch("/:id/commentPost",auth,commentPosts)
     
-    export default router;
+
+
+    export default postRouter;

@@ -3,6 +3,9 @@ import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
+export const test = async (req, res) => {
+    console.log("test");
+}
 export const getUser = async (req, res) => {
     const {id} = req.params;
     if(!mongoose.Types.ObjectId.isValid(id)) return res.send(404).send("User not found");
@@ -60,5 +63,9 @@ export const signup = async (req, res) => {
     }
     
 }
-export const deleteUser = async (req, res) => {}
-export const updateUser = async (req, res) => {}
+export const deleteUser = async (req, res) => {
+    console.log("deleted user are not there");
+}
+export const updateUser = async (req, res) => {
+    console.log("updated");
+}

@@ -1,10 +1,7 @@
 import React,{ useState,useRef, useEffect} from 'react'
-import { Avatar,Button,Paper,Typography,TextField,Grid,Container, Box,Input, Card, InputLabel, InputAdornment, IconButton } from '@mui/material'
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-
+import { Button,TextField,Grid, Card,  InputAdornment, IconButton } from '@mui/material'
 import {useDispatch} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
-
 import Visibility from '@mui/icons-material/Visibility.js';
 import VisibilityOff from '@mui/icons-material/VisibilityOff.js';
 
@@ -28,8 +25,7 @@ const Registration = ({isSignup,formData,setFormData}) => {
     const [confrmPassFocus,setConfrmPassFocus] = useState(false);
     const [validConfrmPass,setValidConfrmPass] = useState(false);
 
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+
     const refer = useRef();
     const handleShowPassword = () => setShowPassword((prevShowPassword)=>!prevShowPassword)
 
@@ -43,9 +39,6 @@ const Registration = ({isSignup,formData,setFormData}) => {
         setValidPassword(PASSWORD_REGEXP.test(password))
         setValidConfrmPass(password===confirmPassword)
     },[password,confirmPassword])
-
-
-    
 
 
   return (
